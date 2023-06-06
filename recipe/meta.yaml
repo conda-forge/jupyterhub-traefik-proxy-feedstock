@@ -1,4 +1,4 @@
-{% set version = "1.0.1" %}
+{% set version = "1.1.0" %}
 
 package:
   name: jupyterhub-traefik-proxy-split
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/j/jupyterhub-traefik-proxy/jupyterhub-traefik-proxy-{{ version }}.tar.gz
-  sha256: 19f242763eb0ee4861537ed956cafe78db49c3bf653e7726717adce39599e2f5
+  sha256: 9e67eb354165b9400fb5a01c4272b4c2073dbd81fbbcd4e766ea7a62fac12cde
   patches:
     - 000-ipv4-localhost.diff
 
