@@ -1,66 +1,55 @@
-{% set version = "1.1.0" %}
+{% set version = "2.0.0" %}
+
+# handle undefined PYTHON in `noarch: generic` outputs
+{% if PYTHON is not defined %}{% set PYTHON = "$PYTHON" %}{% endif %}
 
 package:
-  name: jupyterhub-traefik-proxy-split
+  name: jupyterhub-traefik-proxy
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/j/jupyterhub-traefik-proxy/jupyterhub-traefik-proxy-{{ version }}.tar.gz
-  sha256: 9e67eb354165b9400fb5a01c4272b4c2073dbd81fbbcd4e766ea7a62fac12cde
+  url: https://pypi.org/packages/source/j/jupyterhub-traefik-proxy/jupyterhub_traefik_proxy-{{ version }}.tar.gz
+  sha256: 52e83462d85d0dd416de7031b01380171bac5beab95159a5fccae085b1801dd6
   patches:
     - 000-ipv4-localhost.diff
 
 build:
-  noarch: python
   number: 0
-
+  noarch: python
+  script:
+    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 requirements:
   host:
+    - pip
     - python >=3.6
   run:
+    - aiohttp
+    - escapism
+    - jupyterhub >=0.9
+    - passlib
     - python >=3.6
+    - toml
+    - traefik >=2,<4
+test:
+  imports:
+    - jupyterhub_traefik_proxy.fileprovider
+  commands:
+    - pip check
+  requires:
+    - pip
 
 outputs:
   - name: jupyterhub-traefik-proxy
-    build:
-      noarch: python
-      script:
-        - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-    requirements:
-      host:
-        - pip
-        - python >=3.6
-      run:
-        - aiohttp
-        - escapism
-        - jupyterhub >=0.9
-        - passlib
-        - python >=3.6
-        - toml
-        - traefik >=2,<3
-    test:
-      imports:
-        - jupyterhub_traefik_proxy
-        - jupyterhub_traefik_proxy.fileprovider
-      commands:
-        - pip check
-      requires:
-        - pip
 
   - name: jupyterhub-traefik-proxy-with-consul
     build:
-      noarch: python
+      noarch: generic
     requirements:
-      host:
-        - pip
-        - python >=3.6
       run:
         - {{ pin_subpackage("jupyterhub-traefik-proxy", max_pin="x.x.x") }}
-        - python >=3.6
         - python-consul2
     test:
       imports:
-        - jupyterhub_traefik_proxy
         - jupyterhub_traefik_proxy.consul
       commands:
         - pip check
@@ -69,19 +58,29 @@ outputs:
 
   - name: jupyterhub-traefik-proxy-with-etcd
     build:
-      noarch: python
+      noarch: generic
     requirements:
-      host:
-        - pip
-        - python >=3.6
       run:
         - {{ pin_subpackage("jupyterhub-traefik-proxy", max_pin="x.x.x") }}
         - etcdpy
-        - python >=3.6
     test:
       imports:
-        - jupyterhub_traefik_proxy
         - jupyterhub_traefik_proxy.etcd
+      commands:
+        - pip check
+      requires:
+        - pip
+
+  - name: jupyterhub-traefik-proxy-with-redis
+    build:
+      noarch: generic
+    requirements:
+      run:
+        - {{ pin_subpackage("jupyterhub-traefik-proxy", max_pin="x.x.x") }}
+        - redis-py
+    test:
+      imports:
+        - jupyterhub_traefik_proxy.redis
       commands:
         - pip check
       requires:
@@ -89,14 +88,10 @@ outputs:
 
   - name: jupyterhub-traefik-proxy-with-yaml
     build:
-      noarch: python
+      noarch: generic
     requirements:
-      host:
-        - pip
-        - python >=3.6
       run:
         - {{ pin_subpackage("jupyterhub-traefik-proxy", max_pin="x.x.x") }}
-        - python >=3.6
         - ruamel.yaml
     test:
       imports:
@@ -108,17 +103,14 @@ outputs:
 
   - name: jupyterhub-traefik-proxy-with-all
     build:
-      noarch: python
+      noarch: generic
     requirements:
-      host:
-        - pip
-        - python >=3.6
       run:
         - {{ pin_subpackage("jupyterhub-traefik-proxy-with-consul", max_pin="x.x.x") }}
         - {{ pin_subpackage("jupyterhub-traefik-proxy-with-etcd", max_pin="x.x.x") }}
+        - {{ pin_subpackage("jupyterhub-traefik-proxy-with-redis", max_pin="x.x.x") }}
         - {{ pin_subpackage("jupyterhub-traefik-proxy-with-yaml", max_pin="x.x.x") }}
         - {{ pin_subpackage("jupyterhub-traefik-proxy", max_pin="x.x.x") }}
-        - python >=3.6
     test:
       files:
         - run_test_all.py
@@ -130,13 +122,16 @@ outputs:
         - pip check
         - python run_test_all.py
       requires:
+        - certipy
         - notebook >=4.0,<7.0
         - pip
         - pytest
-        - pytest-asyncio
+        - pytest-asyncio >=0.17,<0.23
         - pytest-cov
-        - websockets
+        - pytest-timeout
+        - redis-server
         - urllib3 <2
+        - websockets
 
 about:
   home: https://jupyterhub-traefik-proxy.readthedocs.io

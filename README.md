@@ -33,6 +33,7 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-jupyterhub--traefik--proxy--with--all-green.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-all) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/jupyterhub-traefik-proxy-with-all.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-all) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/jupyterhub-traefik-proxy-with-all.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-all) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/jupyterhub-traefik-proxy-with-all.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-all) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-jupyterhub--traefik--proxy--with--consul-green.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-consul) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/jupyterhub-traefik-proxy-with-consul.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-consul) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/jupyterhub-traefik-proxy-with-consul.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-consul) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/jupyterhub-traefik-proxy-with-consul.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-consul) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-jupyterhub--traefik--proxy--with--etcd-green.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-etcd) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/jupyterhub-traefik-proxy-with-etcd.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-etcd) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/jupyterhub-traefik-proxy-with-etcd.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-etcd) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/jupyterhub-traefik-proxy-with-etcd.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-etcd) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-jupyterhub--traefik--proxy--with--redis-green.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-redis) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/jupyterhub-traefik-proxy-with-redis.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-redis) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/jupyterhub-traefik-proxy-with-redis.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-redis) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/jupyterhub-traefik-proxy-with-redis.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-redis) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-jupyterhub--traefik--proxy--with--yaml-green.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-yaml) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/jupyterhub-traefik-proxy-with-yaml.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-yaml) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/jupyterhub-traefik-proxy-with-yaml.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-yaml) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/jupyterhub-traefik-proxy-with-yaml.svg)](https://anaconda.org/conda-forge/jupyterhub-traefik-proxy-with-yaml) |
 
 Installing jupyterhub-traefik-proxy
@@ -45,16 +46,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `jupyterhub-traefik-proxy, jupyterhub-traefik-proxy-with-all, jupyterhub-traefik-proxy-with-consul, jupyterhub-traefik-proxy-with-etcd, jupyterhub-traefik-proxy-with-yaml` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `jupyterhub-traefik-proxy, jupyterhub-traefik-proxy-with-all, jupyterhub-traefik-proxy-with-consul, jupyterhub-traefik-proxy-with-etcd, jupyterhub-traefik-proxy-with-redis, jupyterhub-traefik-proxy-with-yaml` can be installed with `conda`:
 
 ```
-conda install jupyterhub-traefik-proxy jupyterhub-traefik-proxy-with-all jupyterhub-traefik-proxy-with-consul jupyterhub-traefik-proxy-with-etcd jupyterhub-traefik-proxy-with-yaml
+conda install jupyterhub-traefik-proxy jupyterhub-traefik-proxy-with-all jupyterhub-traefik-proxy-with-consul jupyterhub-traefik-proxy-with-etcd jupyterhub-traefik-proxy-with-redis jupyterhub-traefik-proxy-with-yaml
 ```
 
 or with `mamba`:
 
 ```
-mamba install jupyterhub-traefik-proxy jupyterhub-traefik-proxy-with-all jupyterhub-traefik-proxy-with-consul jupyterhub-traefik-proxy-with-etcd jupyterhub-traefik-proxy-with-yaml
+mamba install jupyterhub-traefik-proxy jupyterhub-traefik-proxy-with-all jupyterhub-traefik-proxy-with-consul jupyterhub-traefik-proxy-with-etcd jupyterhub-traefik-proxy-with-redis jupyterhub-traefik-proxy-with-yaml
 ```
 
 It is possible to list all of the versions of `jupyterhub-traefik-proxy` available on your platform with `conda`:
@@ -101,7 +102,7 @@ available continuous integration services. Thanks to the awesome service provide
 [CircleCI](https://circleci.com/), [AppVeyor](https://www.appveyor.com/),
 [Drone](https://cloud.drone.io/welcome), and [TravisCI](https://travis-ci.com/)
 it is possible to build and upload installable packages to the
-[conda-forge](https://anaconda.org/conda-forge) [Anaconda-Cloud](https://anaconda.org/)
+[conda-forge](https://anaconda.org/conda-forge) [anaconda.org](https://anaconda.org/)
 channel for Linux, Windows and OSX respectively.
 
 To manage the continuous integration and simplify feedstock maintenance
