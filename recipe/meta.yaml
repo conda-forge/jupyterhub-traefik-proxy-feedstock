@@ -47,7 +47,6 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage("jupyterhub-traefik-proxy", max_pin="x.x.x") }}
-        - python >=3.6
         - python-consul2
     test:
       imports:
@@ -81,7 +80,6 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage("jupyterhub-traefik-proxy", max_pin="x.x.x") }}
-        - python >=3.6
         - ruamel.yaml
     test:
       imports:
@@ -100,7 +98,6 @@ outputs:
         - {{ pin_subpackage("jupyterhub-traefik-proxy-with-etcd", max_pin="x.x.x") }}
         - {{ pin_subpackage("jupyterhub-traefik-proxy-with-yaml", max_pin="x.x.x") }}
         - {{ pin_subpackage("jupyterhub-traefik-proxy", max_pin="x.x.x") }}
-        - python >=3.6
     test:
       files:
         - run_test_all.py
