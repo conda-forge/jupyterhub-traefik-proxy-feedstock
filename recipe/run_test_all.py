@@ -19,6 +19,8 @@ PYTEST_ARGS = [
     "-m",
     "pytest",
     "-vv",
+    "--color=yes",
+    "--tb=long",
     "--asyncio-mode=auto",
     "--cov=jupyterhub_traefik_proxy",
     "--cov-report=term-missing:skip-covered",
