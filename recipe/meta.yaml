@@ -14,6 +14,7 @@ source:
     - 000-ipv4-localhost.diff
 
 build:
+  number: 0
   noarch: python
   script:
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
@@ -127,6 +128,7 @@ outputs:
         - pytest
         - pytest-asyncio >=0.17,<0.23
         - pytest-cov
+        - pytest-timeout
         - redis-server
         - urllib3 <2
         - websockets
