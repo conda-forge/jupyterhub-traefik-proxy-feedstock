@@ -21,6 +21,7 @@ PYTEST_ARGS = [
     "-vv",
     "--color=yes",
     "--tb=long",
+    "--timeout=30",
     "--asyncio-mode=auto",
     "--cov=jupyterhub_traefik_proxy",
     "--cov-report=term-missing:skip-covered",
