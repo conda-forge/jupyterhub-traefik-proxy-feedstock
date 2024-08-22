@@ -1,59 +1,50 @@
 {% set version = "1.1.0" %}
 
+# handle undefined PYTHON in `noarch: generic` outputs
+{% if PYTHON is not defined %}{% set PYTHON = "$PYTHON" %}{% endif %}
+
 package:
-  name: jupyterhub-traefik-proxy-split
+  name: jupyterhub-traefik-proxy
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/j/jupyterhub-traefik-proxy/jupyterhub-traefik-proxy-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/j/jupyterhub-traefik-proxy/jupyterhub_traefik_proxy-{{ version }}.tar.gz
   sha256: 9e67eb354165b9400fb5a01c4272b4c2073dbd81fbbcd4e766ea7a62fac12cde
   patches:
     - 000-ipv4-localhost.diff
 
 build:
   noarch: python
-  number: 0
-
+  script:
+    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 requirements:
   host:
+    - pip
     - python >=3.6
   run:
+    - aiohttp
+    - escapism
+    - jupyterhub >=0.9
+    - passlib
     - python >=3.6
+    - toml
+    - traefik >=2,<4
+test:
+  imports:
+    - jupyterhub_traefik_proxy
+    - jupyterhub_traefik_proxy.fileprovider
+  commands:
+    - pip check
+  requires:
+    - pip
 
 outputs:
   - name: jupyterhub-traefik-proxy
-    build:
-      noarch: python
-      script:
-        - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-    requirements:
-      host:
-        - pip
-        - python >=3.6
-      run:
-        - aiohttp
-        - escapism
-        - jupyterhub >=0.9
-        - passlib
-        - python >=3.6
-        - toml
-        - traefik >=2,<3
-    test:
-      imports:
-        - jupyterhub_traefik_proxy
-        - jupyterhub_traefik_proxy.fileprovider
-      commands:
-        - pip check
-      requires:
-        - pip
 
   - name: jupyterhub-traefik-proxy-with-consul
     build:
-      noarch: python
+      noarch: generic
     requirements:
-      host:
-        - pip
-        - python >=3.6
       run:
         - {{ pin_subpackage("jupyterhub-traefik-proxy", max_pin="x.x.x") }}
         - python >=3.6
@@ -69,11 +60,8 @@ outputs:
 
   - name: jupyterhub-traefik-proxy-with-etcd
     build:
-      noarch: python
+      noarch: generic
     requirements:
-      host:
-        - pip
-        - python >=3.6
       run:
         - {{ pin_subpackage("jupyterhub-traefik-proxy", max_pin="x.x.x") }}
         - etcdpy
@@ -89,11 +77,8 @@ outputs:
 
   - name: jupyterhub-traefik-proxy-with-yaml
     build:
-      noarch: python
+      noarch: generic
     requirements:
-      host:
-        - pip
-        - python >=3.6
       run:
         - {{ pin_subpackage("jupyterhub-traefik-proxy", max_pin="x.x.x") }}
         - python >=3.6
@@ -108,11 +93,8 @@ outputs:
 
   - name: jupyterhub-traefik-proxy-with-all
     build:
-      noarch: python
+      noarch: generic
     requirements:
-      host:
-        - pip
-        - python >=3.6
       run:
         - {{ pin_subpackage("jupyterhub-traefik-proxy-with-consul", max_pin="x.x.x") }}
         - {{ pin_subpackage("jupyterhub-traefik-proxy-with-etcd", max_pin="x.x.x") }}
