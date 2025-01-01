@@ -14,20 +14,20 @@ source:
     - 000-ipv4-localhost.diff
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script:
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - aiohttp
     - escapism
     - jupyterhub >=0.9
     - passlib
-    - python >=3.6
+    - python >={{ python_min }}
     - toml
     - traefik >=2,<4
 test:
@@ -37,6 +37,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 outputs:
   - name: jupyterhub-traefik-proxy
