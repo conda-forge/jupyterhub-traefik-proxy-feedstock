@@ -3,7 +3,7 @@ About jupyterhub-traefik-proxy-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/jupyterhub-traefik-proxy-feedstock/blob/main/LICENSE.txt)
 
-Home: https://jupyterhub-traefik-proxy.readthedocs.io
+Home: https://jupyterhub-traefik-proxy.readthedocs.io/
 
 Package license: BSD-3-Clause
 
